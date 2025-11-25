@@ -1,5 +1,5 @@
 const wrapSourceCodeIntoFunction = (sourceCode: string) => {
-  return new Function(sourceCode);
+  return new Function("require", "module", sourceCode);
 };
 
 export const addURLToModuleEntry = (
