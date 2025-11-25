@@ -8,6 +8,7 @@ import { emitURLToModuleMap } from "./emitURLToModuleMap.ts";
 export const traverseModules = (entryPointURL: string) => {
   const URLToModuleMap = {};
   const sourceCode = getSourceCodeByURL(entryPointURL);
+  addURLToModuleEntry(entryPointURL, sourceCode, URLToModuleMap);
   const modulePaths = searchRequireCalls(sourceCode);
   traverseModulesRecursive(modulePaths, dirname(entryPointURL), URLToModuleMap);
   emitURLToModuleMap(URLToModuleMap);
