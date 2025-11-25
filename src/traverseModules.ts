@@ -20,12 +20,16 @@ const traverseModulesRecursive = (
   const moduleURLs = modulePaths.map((modulePath) =>
     moduleResolve(modulePath, base)
   );
-  moduleURLs.forEach((moduleURL) => {
+  moduleURLs.forEach((moduleURL, index) => {
     const sourceCode = getSourceCodeByURL(moduleURL);
-    addURLToModuleEntry(moduleURL, sourceCode, URLToModuleMap);
+    addURLToModuleEntry(modulePaths[index], sourceCode, URLToModuleMap);
 
-    const modulePaths = searchRequireCalls(sourceCode);
-    traverseModulesRecursive(modulePaths, dirname(moduleURL), URLToModuleMap);
+    const newModulePaths = searchRequireCalls(sourceCode);
+    traverseModulesRecursive(
+      newModulePaths,
+      dirname(moduleURL),
+      URLToModuleMap
+    );
   });
   return modulePaths;
 };
