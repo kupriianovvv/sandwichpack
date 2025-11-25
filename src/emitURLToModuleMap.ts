@@ -9,5 +9,5 @@ export const emitURLToModuleMap = (URLToModuleMap: Record<string, string>) => {
     const formattedKey = JSON.stringify(key);
     appendFileSync("./src/bundle.js", `${formattedKey}: ${func.toString()},`);
   }
-  appendFileSync("./src/bundle.js", "}");
+  appendFileSync("./src/bundle.js", "};");
 };
