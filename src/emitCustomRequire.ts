@@ -1,10 +1,14 @@
+//@ts-nocheck
 import { appendFileSync } from "node:fs";
 
 const customRequire = (modulePath: string) => {
+  if (modulesCache[modulePath]) {
+    return modulesCache[modulePath].exports;
+  }
   const module = { exports: {} };
-
-  //@ts-expect-error
+  modulesCache[modulePath] = module;
   map[modulePath](sandwichpackRequire, module);
+
   return module.exports;
 };
 
